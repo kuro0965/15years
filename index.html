@@ -51,29 +51,53 @@
   <div class="message" id="message"></div>
 
   <script>
+    // ページ読み込み時にチェック
+    window.onload = function() {
+      const saved = localStorage.getItem('tanabataWish');
+      const messageBox = document.getElementById('message');
+  
+      if (saved) {
+        const wishData = JSON.parse(saved);
+        const arrivalDate = new Date(wishData.arrivesAt);
+        const now = new Date();
+  
+        if (now >= arrivalDate) {
+          // 願いが届いたあと
+          const replyYear = arrivalDate.getFullYear() + 15;
+          messageBox.innerHTML = `🌠 あなたの願い事は彦星に届きました！<br>
+          <strong>${replyYear}年の七夕</strong>に返信があるかもしれません…✨`;
+        } else {
+          // まだ届いてない途中
+          const remainYears = arrivalDate.getFullYear() - now.getFullYear();
+          messageBox.innerHTML = `🛰️ 願い事は現在、宇宙を旅しています…<br>
+          <strong>${wishData.arrivesAt}</strong> に彦星に届く予定です`;
+        }
+      }
+    };
+  
     function sendWish() {
       const wish = document.getElementById('wishInput').value.trim();
       const messageBox = document.getElementById('message');
-
+  
       if (!wish) {
         messageBox.textContent = '願い事を入力してください ✨';
         return;
       }
-
+  
       const now = new Date();
       const arrivalYear = now.getFullYear() + 15;
-
+  
       const savedWish = {
         wish: wish,
         created: now.toISOString(),
         arrivesAt: `${arrivalYear}-07-07`
       };
-
+  
       localStorage.setItem('tanabataWish', JSON.stringify(savedWish));
-
+  
       messageBox.innerHTML = `✨ あなたの願い事は宇宙を旅しています…<br>
       <strong>${arrivalYear}年の七夕</strong>に彦星に届く予定です 🌠`;
-      
+  
       document.getElementById('wishInput').value = '';
     }
   </script>
