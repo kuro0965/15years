@@ -41,8 +41,8 @@
   </style>
 </head>
 <body>
-  <h1>🎋 七夕の願い事 🎋</h1>
-  <p>願い事を書いて送信すると、15年後に織姫と彦星に届きます🌌</p>
+  <h1> 織姫の願い事 </h1>
+  <p>願い事を書いて送信すると、15年後に彦星に届きます🌌</p>
 
   <textarea id="wishInput" placeholder="あなたの願いごとを書いてください..."></textarea>
   <br>
@@ -63,7 +63,6 @@
       const now = new Date();
       const arrivalYear = now.getFullYear() + 15;
 
-      // ローカル保存（デモ用）
       const savedWish = {
         wish: wish,
         created: now.toISOString(),
@@ -73,7 +72,7 @@
       localStorage.setItem('tanabataWish', JSON.stringify(savedWish));
 
       messageBox.innerHTML = `✨ あなたの願い事は宇宙を旅しています…<br>
-      <strong>${arrivalYear}年の七夕</strong>に織姫と彦星に届く予定です 🌠`;
+      <strong>${arrivalYear}年の七夕</strong>に彦星に届く予定です 🌠`;
       
       document.getElementById('wishInput').value = '';
     }
