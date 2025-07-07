@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>七夕の願い事 - 15年後に届く手紙</title>
+  <style>
+    body {
+      font-family: 'Helvetica', sans-serif;
+      background: linear-gradient(to bottom, #00111a, #000);
+      color: white;
+      text-align: center;
+      padding: 50px;
+    }
+
+    textarea {
+      width: 80%;
+      height: 100px;
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      resize: none;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background: #00aaff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .message {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #aaffee;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎋 七夕の願い事 🎋</h1>
+  <p>願い事を書いて送信すると、15年後に織姫と彦星に届きます🌌</p>
+
+  <textarea id="wishInput" placeholder="あなたの願いごとを書いてください..."></textarea>
+  <br>
+  <button onclick="sendWish()">送信する</button>
+
+  <div class="message" id="message"></div>
+
+  <script>
+    function sendWish() {
+      const wish = document.getElementById('wishInput').value.trim();
+      const messageBox = document.getElementById('message');
+
+      if (!wish) {
+        messageBox.textContent = '願い事を入力してください ✨';
+        return;
+      }
+
+      const now = new Date();
+      const arrivalYear = now.getFullYear() + 15;
+
+      // ローカル保存（デモ用）
+      const savedWish = {
+        wish: wish,
+        created: now.toISOString(),
+        arrivesAt: `${arrivalYear}-07-07`
+      };
+
+      localStorage.setItem('tanabataWish', JSON.stringify(savedWish));
+
+      messageBox.innerHTML = `✨ あなたの願い事は宇宙を旅しています…<br>
+      <strong>${arrivalYear}年の七夕</strong>に織姫と彦星に届く予定です 🌠`;
+      
+      document.getElementById('wishInput').value = '';
+    }
+  </script>
+</body>
+</html>
